@@ -9,17 +9,13 @@ Item {
 
   property var pluginApi: null
   property ShellScreen currentScreen
-  
   readonly property var geometryPlaceholder: panelContainer
 
-  // ===== DATA BINDING =====
+  // ===== DATA & MAPPING =====
 
-  // Determine monitor
   readonly property string panelMonitor: {
     if (currentScreen && currentScreen.name) return currentScreen.name
     if (pluginApi && pluginApi.currentScreen && pluginApi.currentScreen.name) return pluginApi.currentScreen.name
-    
-    // Fallback to first available monitor
     if (pluginApi && pluginApi.mainInstance && pluginApi.mainInstance.availableMonitors.length > 0) {
       return pluginApi.mainInstance.availableMonitors[0]
     }
@@ -29,11 +25,23 @@ Item {
   readonly property var layouts: pluginApi?.mainInstance?.availableLayouts || []
   readonly property string activeLayout: pluginApi?.mainInstance?.getMonitorLayout(panelMonitor) || ""
 
-  // ===== SETTINGS =====
+  // Matches BarWidget mapping and grouping
+  readonly property var iconMap: ({
+    "T":  "layout-sidebar",
+    "M":  "rectangle",
+    "S":  "carousel-horizontal",
+    "G":  "layout-grid",
+    "K":  "versions",
+    "RT": "layout-sidebar-right",
+    "CT": "layout-distribute-vertical",
+    "TG": "layout-dashboard",
+    "VT": "layout-rows",
+    "VS": "carousel-vertical",
+    "VG": "grid-dots",
+    "VK": "chart-funnel"
+  })
 
   property bool applyToAll: false
-  
-  // Increased size to accommodate Symbol + Text comfortably
   property real contentPreferredWidth: 460 * Style.uiScaleRatio 
   property real contentPreferredHeight: 360 * Style.uiScaleRatio
 
@@ -43,7 +51,7 @@ Item {
     }
   }
 
-  // ===== UI CONTENT =====
+  // ===== UI =====
 
   MouseArea {
     anchors.fill: parent
@@ -75,18 +83,15 @@ Item {
           color: Color.mOnSurface
         }
 
-        // Options Row
+        // Options
         RowLayout {
           Layout.fillWidth: true
-          
           NText {
             text: "Apply to all monitors"
             color: Color.mOnSurfaceVariant
             pointSize: Style.fontSizeS
           }
- 
           Item { Layout.fillWidth: true }
-          
           NToggle {
             checked: root.applyToAll
             onToggled: (checked) => { root.applyToAll = checked }
@@ -114,33 +119,29 @@ Item {
               property bool isActive: modelData.code === root.activeLayout
               property bool isHovered: false
 
-              // Background: Active = Primary, Inactive = SurfaceVariant
               color: isActive ? Color.mPrimary : Color.mSurfaceVariant
               radius: Style.radiusM
               
-              // Border Highlight on Hover (only for inactive items)
               border.width: 2
               border.color: !isActive && isHovered ? Color.mPrimary : Color.transparent
               
-              // Smooth transitions
               Behavior on border.color { ColorAnimation { duration: 150 } }
               Behavior on color { ColorAnimation { duration: 150 } }
 
               ColumnLayout {
                 anchors.centerIn: parent
-                spacing: 0
+                spacing: Style.marginXS
                 width: parent.width - (Style.marginS * 2)
 
-                // 1. Symbol / Letter (Large, Bold)
-                NText {
+                // Icon
+                NIcon {
                   Layout.alignment: Qt.AlignHCenter
-                  text: modelData.code
+                  icon: root.iconMap[modelData.code] || "layout-board"
+                  pointSize: Style.fontSizeXL
                   color: layoutBtn.isActive ? Color.mOnPrimary : Color.mOnSurface
-                  font.weight: Font.Black
-                  pointSize: Style.fontSizeL
                 }
 
-                // 2. Full Name (Small, Regular)
+                // Name
                 NText {
                   Layout.alignment: Qt.AlignHCenter
                   Layout.fillWidth: true
@@ -148,7 +149,7 @@ Item {
                   
                   text: modelData.name
                   color: layoutBtn.isActive ? Color.mOnPrimary : Color.mOnSurface
-                  opacity: layoutBtn.isActive ? 1.0 : 0.7 // Visual hierarchy
+                  opacity: layoutBtn.isActive ? 1.0 : 0.7
                   
                   font.weight: Font.Medium
                   pointSize: Style.fontSizeXS
