@@ -9,6 +9,7 @@
   "description": "A cute animated cat for your bar.",
   "entryPoints": {
     "barWidget": "BarWidget.qml",
+    "desktopWidget": "DesktopWidget.qml",
     "panel": "Panel.qml",
     "settings": "Settings.qml"
   },
