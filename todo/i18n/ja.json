@@ -13,6 +13,7 @@
     "cleared_completed_todos": "クリア",
     "completed_todos_suffix": "完了したTODO",
     "not_found_suffix": "見つかりません",
+    "removed_todo": "TODO項目を削除しました",
     "todo_completed": "完了",
     "todo_marked_incomplete": "未完とマークされました",
     "todo_not_found": "ID の ToDo",

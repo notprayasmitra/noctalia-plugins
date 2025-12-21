@@ -13,6 +13,7 @@
     "cleared_completed_todos": "Despejado",
     "completed_todos_suffix": "Tareas completadas",
     "not_found_suffix": "no encontrado",
+    "removed_todo": "Elemento de tarea pendiente eliminado",
     "todo_completed": "completado",
     "todo_marked_incomplete": "marcado como incompleto",
     "todo_not_found": "Tarea con ID",

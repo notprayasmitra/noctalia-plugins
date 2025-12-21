@@ -1,0 +1,13 @@
+{
+  "settings": {
+    "barWidth": "Balkenbreite",
+    "bloomIntensity": "Blütenintensität",
+    "description": "Audiovisualisierungsdarstellung konfigurieren",
+    "ringOpacity": "Ring-Opazität",
+    "rotationSpeed": "Drehzahl",
+    "sensitivity": "Empfindlichkeit",
+    "showBars": "Balken anzeigen",
+    "showRings": "Vorführringe",
+    "title": "Visualisierungseinstellungen"
+  }
+}

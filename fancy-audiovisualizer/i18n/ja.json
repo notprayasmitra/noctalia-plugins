@@ -1,0 +1,13 @@
+{
+  "settings": {
+    "barWidth": "バーの幅",
+    "bloomIntensity": "開花強度",
+    "description": "オーディオビジュアライザーの外観を設定します。",
+    "ringOpacity": "リングの不透明度",
+    "rotationSpeed": "回転速度",
+    "sensitivity": "感度",
+    "showBars": "バーを表示",
+    "showRings": "指輪を見せる",
+    "title": "ビジュアライザー設定"
+  }
+}

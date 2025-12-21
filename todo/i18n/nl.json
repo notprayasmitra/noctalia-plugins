@@ -13,6 +13,7 @@
     "cleared_completed_todos": "Vrijgegeven",
     "completed_todos_suffix": "voltooide taken",
     "not_found_suffix": "niet gevonden",
+    "removed_todo": "Todo-item verwijderd",
     "todo_completed": "voltooid",
     "todo_marked_incomplete": "gemarkeerd als onvolledig",
     "todo_not_found": "Taak met ID",

@@ -1,0 +1,13 @@
+{
+  "settings": {
+    "barWidth": "Balkbreedte",
+    "bloomIntensity": "Bloei Intensiteit",
+    "description": "Configureer de weergave van de audio visualisatie.",
+    "ringOpacity": "Ringondoorzichtigheid",
+    "rotationSpeed": "Rotatiesnelheid",
+    "sensitivity": "Gevoeligheid",
+    "showBars": "Toon balken",
+    "showRings": "Showringen",
+    "title": "Visualisatie-instellingen"
+  }
+}

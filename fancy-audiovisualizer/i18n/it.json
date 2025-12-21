@@ -1,0 +1,13 @@
+{
+  "settings": {
+    "barWidth": "Breite der Leiste",
+    "bloomIntensity": "Intensità Bloom",
+    "description": "Konfigurieren Sie das Aussehen des Audio-Visualisierers.",
+    "ringOpacity": "Neprůhlednost prstence",
+    "rotationSpeed": "Schnelllaufdrehzahl",
+    "sensitivity": "Ndjeshmëri",
+    "showBars": "Zeige Balken",
+    "showRings": "Halka ng Pagpapakita",
+    "title": "Mga Setting ng Visualizer"
+  }
+}

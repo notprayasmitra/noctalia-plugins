@@ -13,6 +13,7 @@
     "cleared_completed_todos": "Freigegeben",
     "completed_todos_suffix": "Erledigte Aufgaben",
     "not_found_suffix": "nicht gefunden",
+    "removed_todo": "Gelöschtes To-do-Element",
     "todo_completed": "abgeschlossen",
     "todo_marked_incomplete": "als unvollständig markiert",
     "todo_not_found": "Aufgabe mit ID",

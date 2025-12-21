@@ -13,6 +13,7 @@
     "cleared_completed_todos": "Geklart",
     "completed_todos_suffix": "dokončané úkoly",
     "not_found_suffix": "nicht gefunden",
+    "removed_todo": "Entferntes To-do-Element",
     "todo_completed": "završeno",
     "todo_marked_incomplete": "markiert als unvollständig",
     "todo_not_found": "Todo con ID",

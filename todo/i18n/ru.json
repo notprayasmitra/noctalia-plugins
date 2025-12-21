@@ -13,6 +13,7 @@
     "cleared_completed_todos": "Очищено",
     "completed_todos_suffix": "Завершенные задачи",
     "not_found_suffix": "не найдено",
+    "removed_todo": "Удалённая задача",
     "todo_completed": "завершено",
     "todo_marked_incomplete": "Отмечено как незавершённое.",
     "todo_not_found": "Задача с ID",

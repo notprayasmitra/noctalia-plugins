@@ -1,0 +1,13 @@
+{
+  "settings": {
+    "barWidth": "Largeur de la barre",
+    "bloomIntensity": "Intensité de l'éclat",
+    "description": "Configurer l'apparence du visualiseur audio",
+    "ringOpacity": "Opacité de l'anneau",
+    "rotationSpeed": "Vitesse de rotation",
+    "sensitivity": "Sensibilité",
+    "showBars": "Afficher les barres",
+    "showRings": "Anneaux d'exposition",
+    "title": "Paramètres du visualiseur"
+  }
+}

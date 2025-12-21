@@ -13,6 +13,7 @@
     "cleared_completed_todos": "Liberado",
     "completed_todos_suffix": "Tarefas concluídas",
     "not_found_suffix": "não encontrado",
+    "removed_todo": "Item da lista de tarefas removido",
     "todo_completed": "concluído",
     "todo_marked_incomplete": "marcado como incompleto",
     "todo_not_found": "Tarefa com ID",

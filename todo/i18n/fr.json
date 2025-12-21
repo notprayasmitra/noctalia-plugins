@@ -13,6 +13,7 @@
     "cleared_completed_todos": "Autorisé.",
     "completed_todos_suffix": "Tâches terminées",
     "not_found_suffix": "Non trouvé.",
+    "removed_todo": "Élément de tâche supprimé",
     "todo_completed": "Terminé / Terminée",
     "todo_marked_incomplete": "Marqué comme incomplet.",
     "todo_not_found": "Tâche avec l'ID",

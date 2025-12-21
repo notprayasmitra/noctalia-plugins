@@ -13,6 +13,7 @@
     "cleared_completed_todos": "Temizlendi",
     "completed_todos_suffix": "tamamlanmış yapılacaklar",
     "not_found_suffix": "bulunamadı",
+    "removed_todo": "Yapılacaklar listesinden kaldırılan öğe",
     "todo_completed": "tamamlandı",
     "todo_marked_incomplete": "eksik olarak işaretlendi",
     "todo_not_found": "Kimlikli yapılacaklar",
