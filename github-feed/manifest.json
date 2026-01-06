@@ -7,6 +7,7 @@
   "license": "MIT",
   "repository": "https://github.com/linuxmobile/github-feed-noctalia",
   "description": "Display GitHub activity feed with stars, PRs, forks in an overlay panel",
+  "tags": ["Bar", "Panel", "Development", "Network"],
   "entryPoints": {
     "main": "Main.qml",
     "barWidget": "BarWidget.qml",

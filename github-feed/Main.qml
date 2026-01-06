@@ -9,7 +9,9 @@ Item {
 
     property var pluginApi: null
 
-    property var events: []
+    property var rawEvents: []
+    readonly property var events: filterEvents(rawEvents)
+
     property var followingList: []
     property bool isLoading: false
     property bool hasError: false
@@ -35,6 +37,30 @@ Item {
     property var myRepoEvents: []
     property var userRepos: []
     property int pendingFetches: 0
+    property var availableAvatars: ({})
+
+    function filterEvents(rawList) {
+        if (!rawList || rawList.length === 0) return []
+
+        var filtered = rawList.filter(function(event) {
+            switch (event.type) {
+                case "WatchEvent":
+                    return root.showStars
+                case "ForkEvent":
+                    return root.showForks
+                case "PullRequestEvent":
+                    return root.showPRs
+                case "IssuesEvent":
+                    return root.showIssues
+                case "PushEvent":
+                    return root.showPushes
+                default:
+                    return true
+            }
+        })
+
+        return filtered.slice(0, root.maxEvents)
+    }
 
     FileView {
         id: eventsCacheFile
@@ -80,7 +106,7 @@ Item {
             var age = now - root.lastFetchTimestamp
 
             if (age < root.refreshInterval) {
-                root.events = cached.events
+                root.rawEvents = cached.events
                 Logger.i("GitHubFeed", "Using cached data, age: " + Math.floor(age / 60) + " min")
             } else {
                 Logger.i("GitHubFeed", "Cache expired, fetching fresh data")
@@ -95,15 +121,15 @@ Item {
     function saveToCache() {
         if (!root.cacheDir) return
 
-        cacheAdapter.events = root.events
+        cacheAdapter.events = root.rawEvents
         cacheAdapter.timestamp = Math.floor(Date.now() / 1000)
         eventsCacheFile.writeAdapter()
 
-        Logger.d("GitHubFeed", "Cache saved with " + root.events.length + " events")
+        Logger.d("GitHubFeed", "Cache saved with " + root.rawEvents.length + " raw events")
     }
 
     function buildCurlCommand(url) {
-        var cmd = ["curl", "-s", "-f", "-L", "--compressed", "--connect-timeout", "10", "--max-time", "30"]
+        var cmd = ["curl", "-s", "-L", "--compressed", "--connect-timeout", "10", "--max-time", "30"]
 
         if (root.token && root.token.trim() !== "") {
             cmd.push("-H")
@@ -119,6 +145,27 @@ Item {
         return cmd
     }
 
+    function handleApiError(data, context) {
+        if (data && data.message) {
+            var msg = data.message
+            Logger.e("GitHubFeed", context + " API error:", msg)
+
+            if (msg.indexOf("rate limit") !== -1) {
+                root.hasError = true
+                root.errorMessage = "Rate limit exceeded. Add a GitHub token in settings."
+                ToastService.showError("GitHub Feed", "API rate limit exceeded. Please add a Personal Access Token in settings.")
+            } else if (msg.indexOf("Not Found") !== -1) {
+                root.hasError = true
+                root.errorMessage = "User not found: " + root.username
+            } else {
+                root.hasError = true
+                root.errorMessage = msg
+            }
+            return true
+        }
+        return false
+    }
+
     Process {
         id: followingProcess
 
@@ -131,14 +178,6 @@ Item {
         }
 
         stderr: StdioCollector {}
-
-        onExited: function(exitCode, exitStatus) {
-            if (exitCode !== 0) {
-                Logger.w("GitHubFeed", "Following fetch failed with exit code:", exitCode)
-                root.pendingFetches--
-                checkAllFetchesComplete()
-            }
-        }
     }
 
     property var receivedEventsPages: []
@@ -157,14 +196,6 @@ Item {
         }
 
         stderr: StdioCollector {}
-
-        onExited: function(exitCode, exitStatus) {
-            if (exitCode !== 0) {
-                Logger.w("GitHubFeed", "Received events fetch failed for page " + page)
-                root.pendingFetches--
-                checkAllFetchesComplete()
-            }
-        }
     }
 
     Process {
@@ -179,14 +210,6 @@ Item {
         }
 
         stderr: StdioCollector {}
-
-        onExited: function(exitCode, exitStatus) {
-            if (exitCode !== 0) {
-                Logger.w("GitHubFeed", "User repos fetch failed with exit code:", exitCode)
-                root.pendingFetches--
-                checkAllFetchesComplete()
-            }
-        }
     }
 
     function fetchFromGitHub() {
@@ -232,8 +255,7 @@ Item {
         try {
             var data = JSON.parse(responseText)
 
-            if (data.message) {
-                Logger.e("GitHubFeed", "Following API error:", data.message)
+            if (handleApiError(data, "Following")) {
                 checkAllFetchesComplete()
                 return
             }
@@ -267,10 +289,7 @@ Item {
         try {
             var data = JSON.parse(responseText)
 
-            if (data.message) {
-                Logger.e("GitHubFeed", "Received events API error:", data.message)
-                root.hasError = true
-                root.errorMessage = data.message
+            if (handleApiError(data, "Received events")) {
                 root.pendingFetches--
                 checkAllFetchesComplete()
                 return
@@ -316,8 +335,7 @@ Item {
         try {
             var data = JSON.parse(responseText)
 
-            if (data.message) {
-                Logger.e("GitHubFeed", "User repos API error:", data.message)
+            if (handleApiError(data, "User repos")) {
                 checkAllFetchesComplete()
                 return
             }
@@ -381,9 +399,6 @@ Item {
         stderr: StdioCollector {}
 
         onExited: function(exitCode, exitStatus) {
-            if (exitCode !== 0) {
-                Logger.w("GitHubFeed", "Repo events fetch failed for:", repoName)
-            }
             root.pendingRepoEventFetches--
 
             if (root.repoEventQueue.length > 0) {
@@ -447,31 +462,6 @@ Item {
 
         Logger.i("GitHubFeed", "Filtered to " + filteredReceivedEvents.length + " events from followed users (from " + root.receivedEvents.length + " total)")
 
-        var showStars = root.showStars
-        var showForks = root.showForks
-        var showPRs = root.showPRs
-        var showIssues = root.showIssues
-        var showPushes = root.showPushes
-
-        filteredReceivedEvents = filteredReceivedEvents.filter(function(event) {
-            switch (event.type) {
-                case "WatchEvent":
-                    return showStars
-                case "ForkEvent":
-                    return showForks
-                case "PullRequestEvent":
-                    return showPRs
-                case "IssuesEvent":
-                    return showIssues
-                case "PushEvent":
-                    return showPushes
-                default:
-                    return true
-            }
-        })
-
-        Logger.i("GitHubFeed", "After event type filter: " + filteredReceivedEvents.length + " events from followed users")
-
         var allEvents = filteredReceivedEvents.concat(root.myRepoEvents)
 
         allEvents.sort(function(a, b) {
@@ -490,15 +480,15 @@ Item {
             }
         }
 
-        root.events = uniqueEvents.slice(0, root.maxEvents)
+        root.rawEvents = uniqueEvents
         root.lastFetchTimestamp = Math.floor(Date.now() / 1000)
         root.isLoading = false
         root.hasError = false
 
-        Logger.i("GitHubFeed", "Final event count: " + root.events.length)
+        Logger.i("GitHubFeed", "Raw events: " + root.rawEvents.length + ", Filtered: " + root.events.length)
 
         saveToCache()
-        downloadAvatars(root.events)
+        downloadAvatars(root.rawEvents)
     }
 
     property var pendingAvatars: []
@@ -515,6 +505,9 @@ Item {
 
         onExited: function(exitCode, exitStatus) {
             if (exitCode === 0) {
+                var newAvatars = root.availableAvatars
+                newAvatars[currentUserId] = true
+                root.availableAvatars = newAvatars
                 Logger.d("GitHubFeed", "Avatar downloaded for user:", currentUserId)
             }
             root.isDownloadingAvatar = false
@@ -568,13 +561,16 @@ Item {
 
         onExited: function(exitCode, exitStatus) {
             if (exitCode === 0) {
+                var newAvatars = root.availableAvatars
+                newAvatars[avatarId] = true
+                root.availableAvatars = newAvatars
                 downloadNextAvatar()
             } else {
                 root.isDownloadingAvatar = true
                 avatarDownloadProcess.currentUserId = avatarId
                 avatarDownloadProcess.currentUrl = avatarUrl
                 avatarDownloadProcess.command = [
-                    "curl", "-s", "-f", "-L",
+                    "curl", "-s", "-L",
                     "-o", avatarPath,
                     avatarUrl + "&s=80"
                 ]
@@ -585,7 +581,9 @@ Item {
 
     function getAvatarPath(actorId) {
         if (!actorId) return ""
-        return "file://" + root.avatarsDir + "/" + String(actorId) + ".png"
+        var id = String(actorId)
+        if (!root.availableAvatars[id]) return ""
+        return "file://" + root.avatarsDir + "/" + id + ".png"
     }
 
     Timer {
@@ -628,7 +626,7 @@ Item {
             if (pluginApi && newUsername) {
                 pluginApi.pluginSettings.username = newUsername
                 pluginApi.saveSettings()
-                root.events = []
+                root.rawEvents = []
                 root.followingList = []
                 root.lastFetchTimestamp = 0
                 fetchFromGitHub()
@@ -654,6 +652,36 @@ Item {
 
         onExited: function(exitCode, exitStatus) {
             if (exitCode === 0) {
+                scanAvatarsProcess.running = true
+            }
+        }
+    }
+
+    Process {
+        id: scanAvatarsProcess
+        command: ["ls", "-1", root.avatarsDir]
+
+        stdout: StdioCollector {
+            onStreamFinished: {
+                var files = this.text.trim().split("\n")
+                var avatars = {}
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i]
+                    if (file.endsWith(".png")) {
+                        var id = file.replace(".png", "")
+                        avatars[id] = true
+                    }
+                }
+                root.availableAvatars = avatars
+                Logger.d("GitHubFeed", "Scanned " + Object.keys(avatars).length + " existing avatars")
+                eventsCacheFile.reload()
+            }
+        }
+
+        stderr: StdioCollector {}
+
+        onExited: function(exitCode, exitStatus) {
+            if (exitCode !== 0) {
                 eventsCacheFile.reload()
             }
         }
@@ -662,7 +690,7 @@ Item {
     onUsernameChanged: {
         if (root.username) {
             Logger.i("GitHubFeed", "Username changed, fetching new data")
-            root.events = []
+            root.rawEvents = []
             root.followingList = []
             root.lastFetchTimestamp = 0
             fetchFromGitHub()

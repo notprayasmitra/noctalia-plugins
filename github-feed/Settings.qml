@@ -9,55 +9,16 @@ ColumnLayout {
 
     property var pluginApi: null
 
-    property string editUsername:
-        pluginApi?.pluginSettings?.username ||
-        pluginApi?.manifest?.metadata?.defaultSettings?.username ||
-        ""
-
-    property string editToken:
-        pluginApi?.pluginSettings?.token ||
-        pluginApi?.manifest?.metadata?.defaultSettings?.token ||
-        ""
-
-    property int editRefreshInterval:
-        pluginApi?.pluginSettings?.refreshInterval ||
-        pluginApi?.manifest?.metadata?.defaultSettings?.refreshInterval ||
-        1800
-
-    property int editMaxEvents:
-        pluginApi?.pluginSettings?.maxEvents ||
-        pluginApi?.manifest?.metadata?.defaultSettings?.maxEvents ||
-        50
-
-    property bool editShowStars:
-        pluginApi?.pluginSettings?.showStars ??
-        pluginApi?.manifest?.metadata?.defaultSettings?.showStars ??
-        true
-
-    property bool editShowForks:
-        pluginApi?.pluginSettings?.showForks ??
-        pluginApi?.manifest?.metadata?.defaultSettings?.showForks ??
-        true
-
-    property bool editShowPRs:
-        pluginApi?.pluginSettings?.showPRs ??
-        pluginApi?.manifest?.metadata?.defaultSettings?.showPRs ??
-        true
-
-    property bool editShowIssues:
-        pluginApi?.pluginSettings?.showIssues ??
-        pluginApi?.manifest?.metadata?.defaultSettings?.showIssues ??
-        true
-
-    property bool editShowPushes:
-        pluginApi?.pluginSettings?.showPushes ??
-        pluginApi?.manifest?.metadata?.defaultSettings?.showPushes ??
-        false
-
-    property bool editOpenInBrowser:
-        pluginApi?.pluginSettings?.openInBrowser ??
-        pluginApi?.manifest?.metadata?.defaultSettings?.openInBrowser ??
-        true
+    property string editUsername: ""
+    property string editToken: ""
+    property int editRefreshInterval: 1800
+    property int editMaxEvents: 50
+    property bool editShowStars: true
+    property bool editShowForks: true
+    property bool editShowPRs: true
+    property bool editShowIssues: true
+    property bool editShowPushes: false
+    property bool editOpenInBrowser: true
 
     spacing: Style.marginM
 
@@ -81,7 +42,6 @@ ColumnLayout {
         placeholderText: "ghp_xxxxxxxxxxxx"
         text: root.editToken
         onTextChanged: root.editToken = text
-
     }
 
     NDivider {
@@ -117,9 +77,9 @@ ColumnLayout {
 
         NSlider {
             Layout.fillWidth: true
-            from: 300       // 5 minutes minimum
-            to: 7200        // 2 hours maximum
-            stepSize: 300   // 5 minute steps
+            from: 300
+            to: 7200
+            stepSize: 300
             value: root.editRefreshInterval
             onValueChanged: root.editRefreshInterval = value
         }
@@ -162,43 +122,48 @@ ColumnLayout {
         rowSpacing: Style.marginS
 
         NToggle {
+            id: starsToggle
             Layout.fillWidth: true
             label: "Stars"
             description: "Show when repos are starred"
             checked: root.editShowStars
-            onCheckedChanged: root.editShowStars = checked
+            onToggled: (checked) => { root.editShowStars = checked }
         }
 
         NToggle {
+            id: forksToggle
             Layout.fillWidth: true
             label: "Forks"
             description: "Show when repos are forked"
             checked: root.editShowForks
-            onCheckedChanged: root.editShowForks = checked
+            onToggled: (checked) => { root.editShowForks = checked }
         }
 
         NToggle {
+            id: prsToggle
             Layout.fillWidth: true
             label: "Pull Requests"
             description: "Show PR activity"
             checked: root.editShowPRs
-            onCheckedChanged: root.editShowPRs = checked
+            onToggled: (checked) => { root.editShowPRs = checked }
         }
 
         NToggle {
+            id: issuesToggle
             Layout.fillWidth: true
             label: "Issues"
             description: "Show issue activity"
             checked: root.editShowIssues
-            onCheckedChanged: root.editShowIssues = checked
+            onToggled: (checked) => { root.editShowIssues = checked }
         }
 
         NToggle {
+            id: pushesToggle
             Layout.fillWidth: true
             label: "Pushes"
             description: "Show push events (can be noisy)"
             checked: root.editShowPushes
-            onCheckedChanged: root.editShowPushes = checked
+            onToggled: (checked) => { root.editShowPushes = checked }
         }
     }
 
@@ -213,11 +178,12 @@ ColumnLayout {
     }
 
     NToggle {
+        id: browserToggle
         Layout.fillWidth: true
         label: "Open in Browser"
         description: "Click on events to open them in your default browser"
         checked: root.editOpenInBrowser
-        onCheckedChanged: root.editOpenInBrowser = checked
+        onToggled: (checked) => { root.editOpenInBrowser = checked }
     }
 
     NDivider {
@@ -302,5 +268,19 @@ ColumnLayout {
 
     Component.onCompleted: {
         Logger.i("GitHubFeed", "Settings UI loaded")
+
+        var settings = pluginApi?.pluginSettings
+        var defaults = pluginApi?.manifest?.metadata?.defaultSettings
+
+        root.editUsername = settings?.username || defaults?.username || ""
+        root.editToken = settings?.token || defaults?.token || ""
+        root.editRefreshInterval = settings?.refreshInterval || defaults?.refreshInterval || 1800
+        root.editMaxEvents = settings?.maxEvents || defaults?.maxEvents || 50
+        root.editShowStars = settings?.showStars ?? defaults?.showStars ?? true
+        root.editShowForks = settings?.showForks ?? defaults?.showForks ?? true
+        root.editShowPRs = settings?.showPRs ?? defaults?.showPRs ?? true
+        root.editShowIssues = settings?.showIssues ?? defaults?.showIssues ?? true
+        root.editShowPushes = settings?.showPushes ?? defaults?.showPushes ?? false
+        root.editOpenInBrowser = settings?.openInBrowser ?? defaults?.openInBrowser ?? true
     }
 }
