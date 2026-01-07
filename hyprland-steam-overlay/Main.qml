@@ -74,6 +74,7 @@ Item {
     running: false
 
     onExited: (exitCode, exitStatus) => {
+      ensureLogger();
       Logger.i("SteamOverlay: " + (pluginApi?.tr("main.steam_launched") || "Steam launched"));
     }
   }
@@ -90,6 +91,7 @@ Item {
         if (parts.length === 2) {
           screenWidth = parseInt(parts[0]);
           screenHeight = parseInt(parts[1]);
+          ensureLogger();
           var msg = pluginApi?.tr("main.resolution_detected")
             .replace("{width}", screenWidth)
             .replace("{height}", screenHeight);
@@ -136,6 +138,7 @@ Item {
           return false;
         });
 
+        ensureLogger();
         var msg = pluginApi?.tr("main.windows_found").replace("{count}", steamWindows.length);
         Logger.i("SteamOverlay: " + msg);
         lines = [];
@@ -150,6 +153,7 @@ Item {
     running: false
 
     onExited: (exitCode, exitStatus) => {
+      ensureLogger();
       var msg = pluginApi?.tr("main.windows_moved").replace("{code}", exitCode);
       Logger.i("SteamOverlay: " + msg);
       if (exitCode === 0) {
@@ -166,6 +170,7 @@ Item {
     running: false
 
     onExited: (exitCode, exitStatus) => {
+      ensureLogger();
       Logger.i("SteamOverlay: " + (pluginApi?.tr("main.workspace_toggled") || "Workspace toggled"));
     }
   }
@@ -183,6 +188,7 @@ Item {
   }
 
   function toggleOverlay() {
+    ensureLogger();
     Logger.i("SteamOverlay: " + (pluginApi?.tr("main.toggle_called") || "Toggle called"));
 
     if (!steamRunning) {
@@ -201,6 +207,7 @@ Item {
 
       // Wait for detection to complete, then move windows
       Qt.callLater(() => {
+        ensureLogger();
         if (steamWindows.length > 0) {
           moveWindowsToOverlay();
         } else {
@@ -257,6 +264,7 @@ Item {
     target: "plugin:hyprland-steam-overlay"
 
     function toggle() {
+      ensureLogger();
       Logger.i("SteamOverlay: " + (pluginApi?.tr("main.ipc_received") || "IPC toggle received"));
       root.toggleOverlay();
     }
