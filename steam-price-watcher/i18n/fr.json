@@ -37,15 +37,14 @@
       "interval-warning": "⚠️ Des intervalles très courts peuvent entraîner de nombreuses requêtes API.",
       "minutes": "minutes",
       "no-results": "Aucun jeu trouvé. Vérifiez l'App ID et réessayez.",
+      "open-settings": "Ouvrir les paramètres",
       "search": "Rechercher",
       "search-hint": "Recherchez des jeux par nom ou App ID Steam. Vous pouvez trouver l'App ID dans l'URL de la page du jeu.",
       "search-placeholder": "Entrez l'App ID (ex: 730 pour CS2)",
       "searching": "Recherche en cours...",
       "settings-saved": "Paramètres du plugin enregistrés.",
       "target-price-hint": "💡 Nous suggérons 20% en dessous du prix actuel pour de bonnes affaires.",
-      "target-price-label": "Prix cible ($):",
-      "open-settings": "Ouvrir les paramètres",
-      "settings-saved": "Paramètres du plugin enregistrés."
+      "target-price-label": "Prix cible ($):"
     },
     "target-price": "🎯 Cible:",
     "target-reached": "Prix cible atteint!",

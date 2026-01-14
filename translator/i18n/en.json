@@ -3,33 +3,33 @@
     "description": "Translate text"
   },
   "languageNames": {
-    "french": "French",
     "english": "English",
-    "spanish": "Spanish",
+    "french": "French",
     "german": "German",
     "italian": "Italian",
-    "portuguese": "Portuguese"
+    "portuguese": "Portuguese",
+    "spanish": "Spanish"
   },
   "languages": {
-    "french": "Translate to French",
     "english": "Translate to English",
-    "spanish": "Translate to Spanish",
+    "french": "Translate to French",
     "german": "Translate to German",
     "italian": "Translate to Italian",
-    "portuguese": "Translate to Portuguese"
+    "portuguese": "Translate to Portuguese",
+    "spanish": "Translate to Spanish"
   },
   "messages": {
+    "connectionError": "Connection error",
     "enterText": "Type text to translate...",
-    "targetLanguage": "Target language: {code}",
-    "translation": "Translation ({code})",
-    "translating": "Translating...",
     "error": "Translation error",
-    "connectionError": "Connection error"
+    "targetLanguage": "Target language: {code}",
+    "translating": "Translating...",
+    "translation": "Translation ({code})"
   },
   "settings": {
     "backend": {
-      "label": "Translation Backend",
-      "description": "Choose the translation service to use"
+      "description": "Choose the translation service to use",
+      "label": "Translation Backend"
     }
   }
 }

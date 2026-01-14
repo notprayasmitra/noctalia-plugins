@@ -37,15 +37,14 @@
       "interval-warning": "⚠️ Çok kısa aralıklar çok sayıda API isteğine neden olabilir.",
       "minutes": "dakika",
       "no-results": "Oyun bulunamadı. App ID'yi kontrol edip tekrar deneyin.",
+      "open-settings": "Ayarları aç",
       "search": "Ara",
       "search-hint": "Oyunları ada veya Steam App ID'sine göre arayın. App ID'yi oyunun sayfa URL'sinde bulabilirsiniz.",
       "search-placeholder": "App ID girin (örn: CS2 için 730)",
       "searching": "Aranıyor...",
       "settings-saved": "Eklenti ayarları kaydedildi.",
       "target-price-hint": "💡 İyi fırsatlar için güncel fiyatın %80'ini öneriyoruz.",
-      "target-price-label": "Hedef fiyat ($):",
-      "open-settings": "Ayarları aç",
-      "settings-saved": "Eklenti ayarları kaydedildi."
+      "target-price-label": "Hedef fiyat ($):"
     },
     "target-price": "🎯 Hedef:",
     "target-reached": "Hedef fiyata ulaşıldı!",

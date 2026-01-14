@@ -37,15 +37,14 @@
       "interval-warning": "⚠️ 非常に短い間隔は、多くのAPIリクエストを引き起こす可能性があります。",
       "minutes": "分",
       "no-results": "ゲームが見つかりません。App IDを確認して再試行してください。",
+      "open-settings": "設定を開く",
       "search": "検索",
       "search-hint": "ゲーム名またはSteam App IDで検索します。App IDはゲームページのURLで確認できます。",
       "search-placeholder": "App IDを入力 (例: CS2の場合730)",
       "searching": "検索中...",
       "settings-saved": "プラグイン設定を保存しました。",
       "target-price-hint": "💡 お得な取引には現在価格の20%引きをお勧めします。",
-      "target-price-label": "目標価格 ($):",
-      "open-settings": "設定を開く",
-      "settings-saved": "プラグイン設定を保存しました。"
+      "target-price-label": "目標価格 ($):"
     },
     "target-price": "🎯 目標:",
     "target-reached": "目標価格に到達!",

@@ -3,33 +3,33 @@
     "description": "Text übersetzen"
   },
   "languageNames": {
-    "french": "Französisch",
     "english": "Englisch",
-    "spanish": "Spanisch",
+    "french": "Französisch",
     "german": "Deutsch",
     "italian": "Italienisch",
-    "portuguese": "Portugiesisch"
+    "portuguese": "Portugiesisch",
+    "spanish": "Spanisch"
   },
   "languages": {
-    "french": "Ins Französische übersetzen",
     "english": "Ins Englische übersetzen",
-    "spanish": "Ins Spanische übersetzen",
+    "french": "Ins Französische übersetzen",
     "german": "Ins Deutsche übersetzen",
     "italian": "Ins Italienische übersetzen",
-    "portuguese": "Ins Portugiesische übersetzen"
+    "portuguese": "Ins Portugiesische übersetzen",
+    "spanish": "Ins Spanische übersetzen"
   },
   "messages": {
+    "connectionError": "Verbindungsfehler",
     "enterText": "Text zum Übersetzen eingeben...",
-    "targetLanguage": "Zielsprache: {code}",
-    "translation": "Übersetzung ({code})",
-    "translating": "Wird übersetzt...",
     "error": "Übersetzungsfehler",
-    "connectionError": "Verbindungsfehler"
+    "targetLanguage": "Zielsprache: {code}",
+    "translating": "Wird übersetzt...",
+    "translation": "Übersetzung ({code})"
   },
   "settings": {
     "backend": {
-      "label": "Übersetzungsdienst",
-      "description": "Wählen Sie den zu verwendenden Übersetzungsdienst"
+      "description": "Wählen Sie den zu verwendenden Übersetzungsdienst",
+      "label": "Übersetzungsdienst"
     }
   }
 }

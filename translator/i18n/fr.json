@@ -3,33 +3,33 @@
     "description": "Traduire du texte"
   },
   "languageNames": {
-    "french": "Français",
     "english": "Anglais",
-    "spanish": "Espagnol",
+    "french": "Français",
     "german": "Allemand",
     "italian": "Italien",
-    "portuguese": "Portugais"
+    "portuguese": "Portugais",
+    "spanish": "Espagnol"
   },
   "languages": {
-    "french": "Traduire en français",
     "english": "Traduire en anglais",
-    "spanish": "Traduire en espagnol",
+    "french": "Traduire en français",
     "german": "Traduire en allemand",
     "italian": "Traduire en italien",
-    "portuguese": "Traduire en portugais"
+    "portuguese": "Traduire en portugais",
+    "spanish": "Traduire en espagnol"
   },
   "messages": {
+    "connectionError": "Erreur de connexion",
     "enterText": "Tapez le texte à traduire...",
-    "targetLanguage": "Langue cible: {code}",
-    "translation": "Traduction ({code})",
-    "translating": "Traduction en cours...",
     "error": "Erreur de traduction",
-    "connectionError": "Erreur de connexion"
+    "targetLanguage": "Langue cible: {code}",
+    "translating": "Traduction en cours...",
+    "translation": "Traduction ({code})"
   },
   "settings": {
     "backend": {
-      "label": "Service de traduction",
-      "description": "Choisissez le service de traduction à utiliser"
+      "description": "Choisissez le service de traduction à utiliser",
+      "label": "Service de traduction"
     }
   }
 }

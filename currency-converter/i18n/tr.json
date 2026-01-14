@@ -27,6 +27,7 @@
   "currency-converter.loading": "Yükleniyor...",
   "currency-converter.no-data": "Veri yok",
   "currency-converter.refresh": "Kurları güncelle",
+  "currency-converter.settings.title": "Döviz Çevirici Ayarları",
   "currency-converter.swap": "Para birimlerini değiştir",
   "currency-converter.title": "Döviz Dönüştürücü",
   "currency-converter.to": "Hedef",

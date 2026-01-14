@@ -1,14 +1,14 @@
 {
   "main": {
+    "ipc_received": "Basculement IPC reçu",
+    "launching_steam": "Lancement de Steam...",
+    "no_windows_found": "Aucune fenêtre Steam trouvée",
     "plugin_loaded": "API du plugin chargée",
     "resolution_detected": "Résolution détectée: {width} x {height}",
+    "steam_launched": "Steam lancé",
+    "toggle_called": "Basculement appelé",
     "windows_found": "{count} fenêtres Steam trouvées",
     "windows_moved": "Fenêtres déplacées, code de sortie: {code}",
-    "workspace_toggled": "Espace de travail basculé",
-    "toggle_called": "Basculement appelé",
-    "launching_steam": "Lancement de Steam...",
-    "steam_launched": "Steam lancé",
-    "no_windows_found": "Aucune fenêtre Steam trouvée",
-    "ipc_received": "Basculement IPC reçu"
+    "workspace_toggled": "Espace de travail basculé"
   }
 }

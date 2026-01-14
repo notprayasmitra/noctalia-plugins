@@ -3,33 +3,33 @@
     "description": "Traduzir texto"
   },
   "languageNames": {
-    "french": "Francês",
     "english": "Inglês",
-    "spanish": "Espanhol",
+    "french": "Francês",
     "german": "Alemão",
     "italian": "Italiano",
-    "portuguese": "Português"
+    "portuguese": "Português",
+    "spanish": "Espanhol"
   },
   "languages": {
-    "french": "Traduzir para francês",
     "english": "Traduzir para inglês",
-    "spanish": "Traduzir para espanhol",
+    "french": "Traduzir para francês",
     "german": "Traduzir para alemão",
     "italian": "Traduzir para italiano",
-    "portuguese": "Traduzir para português"
+    "portuguese": "Traduzir para português",
+    "spanish": "Traduzir para espanhol"
   },
   "messages": {
+    "connectionError": "Erro de conexão",
     "enterText": "Digite o texto para traduzir...",
-    "targetLanguage": "Idioma de destino: {code}",
-    "translation": "Tradução ({code})",
-    "translating": "Traduzindo...",
     "error": "Erro de tradução",
-    "connectionError": "Erro de conexão"
+    "targetLanguage": "Idioma de destino: {code}",
+    "translating": "Traduzindo...",
+    "translation": "Tradução ({code})"
   },
   "settings": {
     "backend": {
-      "label": "Serviço de tradução",
-      "description": "Escolha o serviço de tradução a usar"
+      "description": "Escolha o serviço de tradução a usar",
+      "label": "Serviço de tradução"
     }
   }
 }
