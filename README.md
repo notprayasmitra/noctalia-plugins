@@ -143,7 +143,7 @@ This allows the community to share and use plugins outside the main registry.
 | ajunca      | [GitHub](https://github.com/ajunca/noctalia-dropdown-terminal)      |
 | phanindra   | [GitHub](https://github.com/pahnin/noctalia-unofficial-plugins)     |
 
-## AI Development
+### AI Development
 
 If using AI tools to contribute, see [AGENTS.md](./AGENTS.md) for plugin patterns and guidelines.
 
